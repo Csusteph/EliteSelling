@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ready to Win · Elite Seller Showdown</title>
+<meta name="description" content="Ready to Win 2027: Elite Seller Showdown — complete Race to Win passport challenges, earn points, climb the leaderboard, and spin to win. The journey starts here." />
+<meta name="color-scheme" content="dark" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ═══ READY TO WIN · ELITE SELLER SHOWDOWN · DESIGN SYSTEM ═════════
+   Coca-Cola IR look: white top nav + red pill, near-black panel,
+   two-tone stacked headings, flat design, thin dividers.           */
+:root{
+  --red:#E4051F; --gold:#C9A24B; --green:#3DAE5A; --blue:#7FCFE0;
+  --victory:#E41E26; --sprite:#00A651; --bronze:#CD7F32; --gold-award:#FFD700;
+
+  --bg:#141414; --panel:#1D1D1B;
+  --ink:#FFFFFF; --ink2:#B8B3AE; --ink3:rgba(255,255,255,.55); --ink4:rgba(255,255,255,.34);
+  --line:rgba(255,255,255,.12); --line2:rgba(255,255,255,.2);
+  --focus:#7FCFE0;
+
+  --display:'Archivo',system-ui,sans-serif;
+  --heavy:'Archivo Black','Archivo',system-ui,sans-serif;
+  --body:'Inter','Helvetica Neue',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.5;overflow-x:hidden;min-height:100vh}
+::selection{background:rgba(228,5,31,.45)}
+.num{font-variant-numeric:tabular-nums}
+
+:where(a,button,input,select,[tabindex],[role="button"]):focus-visible{
+  outline:2px solid var(--focus);outline-offset:2px;border-radius:6px}
+
+.skip-link{position:fixed;left:14px;top:-60px;z-index:10001;background:var(--red);color:#fff;
+  padding:10px 16px;border-radius:999px;font-size:13px;font-weight:700;text-decoration:none;transition:top .2s var(--ease)}
+.skip-link:focus{top:14px}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ═══ WHITE TOP NAV ═════════════════════════════════════════════ */
+.topnav{background:#fff;border-bottom:1px solid #e5e2de;position:sticky;top:0;z-index:100}
+.topnav-in{max-width:1180px;margin:0 auto;padding:0 1.4rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.wordmark{display:flex;align-items:baseline;gap:8px;color:#111;text-decoration:none;white-space:nowrap}
+.wm-side{font-family:var(--display);font-size:12px;font-weight:700;letter-spacing:.22em}
+.wm-script{font-family:'Brush Script MT','Segoe Script',cursive;font-size:26px;font-weight:400;color:var(--red);line-height:1;transform:translateY(2px);cursor:pointer;user-select:none}
+.topnav nav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.topnav nav a{color:#3a3a38;font-size:14px;font-weight:500;text-decoration:none;padding:7px 13px;border-radius:999px;transition:background .15s,color .15s;white-space:nowrap}
+.topnav nav a:hover{background:#f2efeb;color:#111}
+.topnav nav a.active{background:var(--red);color:#fff;font-weight:700}
+.topnav nav a.active:hover{background:#c70419}
+
+/* ═══ COUNTDOWN STRIP ═══════════════════════════════════════════ */
+.cd-strip{background:var(--red);color:#fff;text-align:center;padding:9px 1rem;font-size:13.5px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.cd-strip .cd-l{opacity:.85;font-weight:500}
+.cd-strip .cd-units{display:inline-flex;gap:10px;font-family:var(--mono);font-weight:600}
+.cd-strip .cd-units span b{font-size:15px}
+.cd-strip .cd-units span i{font-style:normal;font-size:10px;opacity:.8;margin-left:3px;text-transform:uppercase;letter-spacing:.08em}
+
+/* ═══ LAYOUT ════════════════════════════════════════════════════ */
+.page{max-width:1180px;margin:0 auto;padding:0 1.4rem 5rem}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+section{scroll-margin-top:80px}
+
+/* two-tone stacked heading — the signature look */
+.tt{margin-bottom:1.4rem}
+.tt .l1{display:block;font-family:var(--display);font-weight:400;font-size:clamp(24px,3.2vw,34px);color:var(--ink);line-height:1.05}
+.tt .l2{display:block;font-family:var(--heavy);font-weight:900;font-size:clamp(28px,3.8vw,40px);text-transform:uppercase;letter-spacing:-.02em;line-height:1.05}
+.tt .l2.red{color:var(--red)} .tt .l2.gold{color:var(--gold)} .tt .l2.green{color:var(--green)} .tt .l2.blue{color:var(--blue)}
+.tt::after{content:'';display:block;height:1px;background:var(--line);margin-top:14px}
+.tt-sub{font-size:14px;color:var(--ink2);margin:-6px 0 1.4rem;max-width:62ch}
+
+/* ═══ HERO ══════════════════════════════════════════════════════ */
+.hero{padding:3.6rem 0 2.2rem;max-width:760px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3);margin-bottom:1rem}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 2.2s ease infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.55);opacity:.4}}
+h1.title{font-family:var(--heavy);font-size:clamp(2.5rem,6.4vw,4.4rem);line-height:.98;letter-spacing:-.015em;text-transform:uppercase}
+h1 .rw{color:var(--red)}
+h1 .thin{display:block;font-family:var(--display);font-weight:400;font-size:.42em;text-transform:none;letter-spacing:.01em;color:var(--ink2);margin-top:.55rem}
+.hero-sub{margin-top:1.1rem;font-size:15.5px;color:var(--ink2);max-width:480px;line-height:1.65}
+.hero-sub b{color:var(--ink)}
+.hero-ctas{margin-top:1.7rem;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border:none;border-radius:999px;background:var(--red);color:#fff;font-family:var(--body);font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;transition:background .2s,transform .2s}
+.btn-primary:hover{background:#c70419;transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;border:1px solid var(--line2);color:var(--ink2);font-size:13.5px;font-weight:600;text-decoration:none;transition:border-color .2s,color .2s;cursor:pointer;background:transparent;font-family:var(--body)}
+.btn-ghost:hover{border-color:var(--red);color:var(--ink)}
+
+/* big countdown card — full-width, flip-tick digits */
+.cd-card{border:1px solid var(--line);border-radius:4px;background:var(--panel);padding:1.9rem 1.7rem 1.7rem;text-align:center;margin:0 0 3.6rem}
+.cd-title{font-family:var(--heavy);font-size:clamp(18px,2.4vw,26px);text-transform:uppercase;letter-spacing:.01em;color:var(--ink);margin-bottom:1.2rem}
+.cd-title .rw{color:var(--red)}
+.cd-grid{display:grid;grid-template-columns:repeat(4,minmax(70px,120px));gap:12px;justify-content:center}
+.cd-unit{background:#141414;border:1px solid var(--line);border-radius:3px;padding:16px 6px 12px}
+.cd-num{font-family:var(--heavy);font-size:clamp(1.7rem,4vw,2.6rem);line-height:1;color:var(--ink)}
+.cd-num.tick{animation:cd-flip .45s var(--ease)}
+@keyframes cd-flip{0%{transform:rotateX(70deg);opacity:.2}100%{transform:rotateX(0);opacity:1}}
+.cd-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-top:8px}
+.cd-sub{font-size:13.5px;color:var(--ink2);margin-top:1.2rem}
+.cd-sub b{color:var(--ink)}
+
+/* ═══ STATS ROW ═════════════════════════════════════════════════ */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--panel);margin:0 0 3.6rem}
+.stat{padding:1.4rem 1.5rem;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:var(--heavy);font-size:2.1rem;letter-spacing:-.02em;line-height:1}
+.stat:nth-child(1) .stat-n{color:var(--red)} .stat:nth-child(2) .stat-n{color:var(--gold)}
+.stat:nth-child(3) .stat-n{color:var(--green)} .stat:nth-child(4) .stat-n{color:var(--blue)}
+.stat-l{font-size:11.5px;color:var(--ink2);margin-top:7px;letter-spacing:.04em}
+
+/* ═══ SECTIONS ══════════════════════════════════════════════════ */
+section{margin-bottom:4.2rem}
+
+/* identity bar */
+.identity-bar{border:1px dashed rgba(228,5,31,.5);border-radius:4px;padding:1rem 1.3rem;display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:rgba(228,5,31,.05);margin-bottom:1.1rem}
+.identity-bar.joined{border-style:solid;border-color:var(--line)}
+.id-text{font-size:13.5px;color:var(--ink2);flex:1;min-width:220px}
+.id-text b{color:var(--ink)}
+.id-field{background:#101010;border:1px solid var(--line2);border-radius:3px;padding:9px 13px;color:var(--ink);font-family:var(--body);font-size:13px;outline:none;transition:border-color .2s}
+.id-field:focus{border-color:var(--red)}
+select.id-field{appearance:none;cursor:pointer;padding-right:30px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23888' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:13px}
+select.id-field option{background:#181818;color:var(--ink)}
+.id-join-btn{padding:10px 20px;border-radius:999px;border:none;background:var(--red);color:#fff;font-family:var(--body);font-size:13px;font-weight:700;cursor:pointer;transition:background .2s}
+.id-join-btn:hover{background:#c70419}
+.id-edit{font-size:11.5px;color:var(--ink3);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:var(--body)}
+.id-edit:hover{color:var(--ink2)}
+
+/* your progress card */
+.me-card{border:1px solid var(--line);border-radius:4px;background:var(--panel);padding:1.15rem 1.4rem;display:none;grid-template-columns:1fr auto auto;gap:1.4rem;align-items:center;margin-bottom:1.1rem}
+.me-card.on{display:grid}
+.me-pts .n{font-family:var(--heavy);font-size:1.8rem;color:var(--gold-award);line-height:1}
+.me-pts .l{font-size:11px;color:var(--ink2);margin-top:4px;letter-spacing:.04em;text-transform:uppercase}
+.me-tier{display:flex;align-items:center;gap:11px}
+.tier-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.me-tier-name{font-family:var(--display);font-weight:700;font-size:15px}
+.me-tier-next{font-size:11.5px;color:var(--ink2);margin-top:2px}
+.me-track{grid-column:1/-1;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;position:relative}
+.me-fill{height:100%;width:0;background:linear-gradient(90deg,var(--bronze),#C0C0C0 40%,var(--gold-award) 70%,var(--victory));transition:width 1s var(--ease)}
+.me-spins .n{font-family:var(--heavy);font-size:1.8rem;color:var(--blue);line-height:1}
+.me-spins .l{font-size:11px;color:var(--ink2);margin-top:4px;letter-spacing:.04em;text-transform:uppercase}
+
+/* showdown layout: leaderboard + challenges */
+.cup-layout{display:grid;grid-template-columns:360px 1fr;gap:16px}
+.board{border:1px solid var(--line);border-radius:4px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column}
+.board-head{padding:1.1rem 1.3rem;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.board-title{font-family:var(--display);font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+.board-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.board-body{padding:.8rem 1rem 1.1rem;flex:1;max-height:520px;overflow-y:auto}
+.lb-row{display:flex;align-items:center;gap:11px;padding:8px 4px;border-radius:3px}
+.lb-row.me{background:rgba(201,162,75,.1);outline:1px solid rgba(201,162,75,.35)}
+.lb-rank{font-family:var(--mono);font-size:12px;width:26px;text-align:center;color:var(--ink3);flex-shrink:0}
+.lb-rank.r1{color:var(--gold-award)}
+.lb-chip{width:36px;height:24px;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8px;font-weight:600;color:#fff}
+.lb-info{flex:1;min-width:0}
+.lb-name{font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-track{height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin-top:4px;overflow:hidden}
+.lb-fill{height:100%;border-radius:2px;width:0;transition:width 1s var(--ease)}
+.lb-pts{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink2);white-space:nowrap}
+.board-foot{padding:.8rem 1.3rem;border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink3);text-transform:uppercase;display:flex;justify-content:space-between}
+.board-foot b{color:var(--gold)}
+
+/* challenge cards */
+.challenges{display:flex;flex-direction:column;gap:10px}
+.ch-card{position:relative;border:1px solid var(--line);border-radius:4px;background:var(--panel);padding:1.05rem 1.25rem;display:flex;align-items:center;gap:14px;transition:border-color .2s}
+.ch-card:hover{border-color:rgba(228,5,31,.55)}
+.ch-card.is-done{opacity:.5}
+.ch-card.is-done{border-left:3px solid var(--green)}
+.ch-ic{width:42px;height:42px;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:19px;border:1px solid var(--line)}
+.ch-ic.c1{background:rgba(228,5,31,.12)} .ch-ic.c2{background:rgba(201,162,75,.12)}
+.ch-ic.c3{background:rgba(61,174,90,.12)} .ch-ic.c4{background:rgba(127,207,224,.12)}
+.ch-info{flex:1;min-width:0}
+.ch-name{font-size:14px;font-weight:600}
+.ch-desc{font-size:12.5px;color:var(--ink2);margin-top:2px}
+.ch-side{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.ch-xp{font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--gold)}
+.ch-btn{font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:8px 15px;border-radius:999px;cursor:pointer;border:1px solid rgba(228,5,31,.55);background:transparent;color:var(--ink2);transition:background .2s,color .2s;white-space:nowrap;min-height:34px}
+.ch-btn:hover:not(:disabled){background:var(--red);color:#fff}
+.ch-btn:disabled{cursor:default}
+.ch-btn.done{border-color:rgba(61,174,90,.5);color:var(--green)}
+.xp-pop{position:absolute;right:18px;top:8px;font-family:var(--heavy);font-size:15px;color:var(--gold-award);animation:xp-rise 1.6s ease forwards;pointer-events:none}
+@keyframes xp-rise{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-26px)}}
+
+/* ═══ AWARD LEVELS ══════════════════════════════════════════════ */
+.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--panel)}
+.tier{padding:1.5rem 1.4rem;border-right:1px solid var(--line);position:relative}
+.tier:last-child{border-right:none}
+.tier.unlocked::after{content:'✓ EARNED';position:absolute;top:12px;right:12px;font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--green)}
+.tier-badge{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:.9rem;border:2px solid}
+.tier-badge.glow{animation:trophy-glow 2s ease-in-out infinite}
+@keyframes trophy-glow{0%,100%{box-shadow:0 0 8px rgba(228,30,38,.5)}50%{box-shadow:0 0 26px rgba(228,30,38,.95),0 0 46px rgba(228,30,38,.4)}}
+.tier-name{font-family:var(--heavy);font-size:15px;text-transform:uppercase;letter-spacing:.01em}
+.tier-pts{font-family:var(--mono);font-size:12px;margin-top:4px}
+.tier-desc{font-size:12.5px;color:var(--ink2);margin-top:7px;line-height:1.5}
+
+/* ═══ SPIN / PRIZES ═════════════════════════════════════════════ */
+.spin-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.spin-card,.prize-card{border:1px solid var(--line);border-radius:4px;background:var(--panel);padding:1.5rem 1.6rem}
+.spin-rule{display:flex;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.spin-rule:last-child{border-bottom:none}
+.spin-rule b{font-family:var(--heavy);color:var(--blue);font-size:16px;min-width:120px}
+.prize-row{display:flex;align-items:center;gap:13px;padding:11px 0;border-bottom:1px solid var(--line)}
+.prize-row:last-child{border-bottom:none}
+.prize-ic{font-size:22px;width:34px;text-align:center;flex-shrink:0}
+.prize-n{font-size:14px;font-weight:600}
+.prize-d{font-size:12px;color:var(--ink2);margin-top:1px}
+.prize-qty{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--gold);white-space:nowrap}
+
+/* ═══ RIDDLES ═══════════════════════════════════════════════════ */
+.riddles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.riddle{border:1px solid var(--line);border-radius:4px;background:var(--panel);padding:1.4rem 1.5rem;display:flex;flex-direction:column}
+.riddle-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:.7rem}
+.riddle-title{font-family:var(--display);font-weight:700;font-size:15px;margin-bottom:.7rem}
+.riddle-body{font-size:13.5px;color:var(--ink2);line-height:1.7;font-style:italic;flex:1;white-space:pre-line}
+.riddle-reveal{margin-top:1rem;align-self:flex-start;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:8px 15px;border-radius:999px;border:1px solid rgba(61,174,90,.5);background:transparent;color:var(--green);cursor:pointer;font-family:var(--body);transition:background .2s,color .2s}
+.riddle-reveal:hover{background:var(--green);color:#fff}
+.riddle-ans{margin-top:.9rem;font-size:13.5px;font-weight:600;color:var(--green);display:none}
+.riddle-ans.open{display:block;animation:ans-in .4s var(--ease)}
+@keyframes ans-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ═══ RECORDING ═════════════════════════════════════════════════ */
+.rec-wrap{border:1px solid var(--line);border-radius:4px;background:var(--panel);overflow:hidden;display:grid;grid-template-columns:1.4fr 1fr}
+.rec-video{position:relative;background:#000;min-height:320px}
+.rec-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.rec-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--ink3)}
+.rec-play{width:64px;height:64px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center}
+.rec-play svg{width:24px;height:24px;fill:#fff;margin-left:3px}
+.rec-side{padding:1.7rem 1.8rem;border-left:1px solid var(--line);display:flex;flex-direction:column}
+.rec-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:.7rem}
+.rec-title{font-family:var(--heavy);font-size:1.25rem;text-transform:uppercase;line-height:1.15}
+.rec-meta{font-size:12.5px;color:var(--ink2);margin-top:.6rem}
+.rec-desc{font-size:13.5px;color:var(--ink2);line-height:1.65;margin-top:1rem;flex:1}
+.rec-link{margin-top:1.2rem;align-self:flex-start}
+
+/* ═══ TOASTS / CONFETTI / FOOTER ════════════════════════════════ */
+#toasts{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10000;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+.toast{background:#1f1f1d;border:1px solid var(--line2);color:var(--ink);font-size:13px;font-weight:500;padding:11px 20px;border-radius:999px;animation:toast-in .3s var(--ease);max-width:92vw;text-align:center}
+.toast.success{border-color:rgba(61,174,90,.6)}
+.toast.error{border-color:rgba(228,5,31,.7)}
+.toast.gold{border-color:rgba(201,162,75,.7)}
+@keyframes toast-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.confetti{position:fixed;top:-12px;z-index:9999;pointer-events:none;animation:confetti-fall linear forwards}
+@keyframes confetti-fall{to{transform:translateY(105vh) rotate(720deg);opacity:.9}}
+
+.sparkle{position:fixed;z-index:9998;pointer-events:none;font-size:11px;animation:sp-fade .9s ease forwards}
+@keyframes sp-fade{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(-22px) scale(.4)}}
+
+/* 🥤 ICE COLD MODE (est. 1886) */
+body.icecold{background:#1a0406}
+body.icecold .topnav{background:#F40009;border-bottom-color:#c70008}
+body.icecold .topnav nav a{color:rgba(255,255,255,.85)}
+body.icecold .topnav nav a:hover{background:rgba(255,255,255,.15);color:#fff}
+body.icecold .topnav nav a.active{background:#fff;color:#F40009}
+body.icecold .wordmark{color:#fff}
+body.icecold .wm-script{color:#fff}
+.bubble{position:fixed;bottom:-20px;z-index:9997;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.85),rgba(255,255,255,.15) 60%,transparent);
+  animation:bubble-rise linear forwards}
+@keyframes bubble-rise{to{transform:translateY(-110vh) translateX(var(--sway,0px));opacity:0}}
+
+/* 🏆 ELITE MODE (type "elite") */
+body.elitemode .tt .l2{color:var(--gold-award)!important}
+body.elitemode h1 .rw{color:var(--gold-award)}
+body.elitemode .cd-strip{background:linear-gradient(90deg,#8a6d1f,#C9A24B,#8a6d1f)}
+
+footer{border-top:1px solid var(--line);padding:2.2rem 1.4rem 2.6rem;text-align:center}
+.foot-star{font-size:20px;color:var(--gold);cursor:pointer;user-select:none;display:inline-block;transition:transform .2s}
+.foot-star:hover{transform:scale(1.25) rotate(18deg)}
+.foot-hint{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--ink4);margin-top:.9rem;line-height:1.9}
+.foot-brand{font-size:12px;color:var(--ink3);margin-top:1rem}
+.foot-brand b{color:var(--red)}
+
+/* ═══ RESPONSIVE ════════════════════════════════════════════════ */
+@media(max-width:960px){
+  .cup-layout{grid-template-columns:1fr}
+  .riddles{grid-template-columns:1fr}
+  .spin-layout{grid-template-columns:1fr}
+  .rec-wrap{grid-template-columns:1fr}
+  .rec-side{border-left:none;border-top:1px solid var(--line)}
+  .tiers{grid-template-columns:1fr 1fr}
+  .tier:nth-child(2){border-right:none}
+  .tier:nth-child(1),.tier:nth-child(2){border-bottom:1px solid var(--line)}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(2){border-right:none}
+  .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--line)}
+}
+@media(max-width:640px){
+  .topnav-in{height:auto;padding:10px 1rem;flex-direction:column;gap:8px}
+  .tiers,.stats{grid-template-columns:1fr}
+  .tier,.stat{border-right:none;border-bottom:1px solid var(--line)}
+  .tier:last-child,.stat:last-child{border-bottom:none}
+  .me-card{grid-template-columns:1fr 1fr}
+  .cd-grid{grid-template-columns:repeat(4,1fr);gap:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#showdown">Skip to the Showdown</a>
+
+<!-- ═══ WHITE TOP NAV ═══ -->
+<header class="topnav">
+  <div class="topnav-in">
+    <a class="wordmark" href="#top" aria-label="Ready to Win home">
+      <span class="wm-side">READY TO</span>
+      <span class="wm-script" id="logo-egg" title="win">Win</span>
+      <span class="wm-side">2027</span>
+    </a>
+    <nav aria-label="Page sections">
+      <a class="active" href="#top">Showdown Home</a>
+      <a href="#showdown">Race to Win</a>
+      <a href="#awards">Award Levels</a>
+      <a href="#spin">Spin &amp; Prizes</a>
+      <a href="#riddles">Riddles</a>
+      <a href="#recording">Rewatch</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══ COUNTDOWN STRIP ═══ -->
+<div class="cd-strip" role="status">
+  <span class="cd-l" id="strip-label">Ready to Win · Monday, October 5</span>
+  <span class="cd-units num">
+    <span><b id="s-d">–</b><i>days</i></span>
+    <span><b id="s-h">–</b><i>hrs</i></span>
+    <span><b id="s-m">–</b><i>min</i></span>
+  </span>
+</div>
+
+<main class="page" id="top">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div>
+      <div class="eyebrow"><span class="live-dot" aria-hidden="true"></span>RCCB · 2027 READY TO SELL · RACE TO WIN</div>
+      <h1 class="title">Elite Seller <span class="rw">Showdown</span>
+        <span class="thin">Ready to Win: The Journey Starts Here.</span>
+      </h1>
+      <p class="hero-sub">Engage with content, earn points, collaborate with peers, and turn learning into <b>measurable customer success</b>. <b>120 elite sellers.</b> One leaderboard. Complete missions, climb the ranks, and earn your spin entries before Ready to Win on October 5.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#showdown">Start earning points ↓</a>
+        <a class="btn-ghost" href="#recording">Rewatch the meeting</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ COUNTDOWN CARD ═══ -->
+  <div class="cd-card reveal" role="timer" aria-label="Countdown to Ready to Win">
+    <div class="cd-title" id="cd-title">Countdown to <span class="rw">Ready to Win</span></div>
+    <div class="cd-grid num">
+      <div class="cd-unit"><div class="cd-num" id="cdDays">--</div><div class="cd-lbl">Days</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cdHours">--</div><div class="cd-lbl">Hours</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cdMinutes">--</div><div class="cd-lbl">Minutes</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cdSeconds">--</div><div class="cd-lbl">Seconds</div></div>
+    </div>
+    <div class="cd-sub">See you <b>Monday, October 5 · 8:00 AM PST</b> at your local DC watch party ★</div>
+  </div>
+
+  <!-- ═══ STATS ═══ -->
+  <div class="stats reveal">
+    <div class="stat"><div class="stat-n num" id="stat-sellers">120</div><div class="stat-l">Elite sellers competing</div></div>
+    <div class="stat"><div class="stat-n num" id="stat-pts">0</div><div class="stat-l">Total points earned</div></div>
+    <div class="stat"><div class="stat-n num" id="stat-days">–</div><div class="stat-l">Days until Ready to Win</div></div>
+    <div class="stat"><div class="stat-n num" id="stat-challenges">12</div><div class="stat-l">Passport challenges</div></div>
+  </div>
+
+  <!-- ═══ RACE TO WIN ═══ -->
+  <section id="showdown" class="reveal">
+    <h2 class="tt"><span class="l1">Race to</span><span class="l2 red">Win</span></h2>
+    <p class="tt-sub">Complete Passport Challenges to earn points for the Showdown. Every 100 points = 1 entry in the live prize wheel at Ready to Win. It's you vs. everyone.</p>
+
+    <div class="identity-bar" id="identity-bar"><!-- js --></div>
+
+    <div class="me-card" id="me-card">
+      <div class="me-tier">
+        <span class="tier-dot" id="me-dot" style="background:#555"></span>
+        <div>
+          <div class="me-tier-name" id="me-tier">—</div>
+          <div class="me-tier-next" id="me-next"></div>
+        </div>
+      </div>
+      <div class="me-pts"><div class="n num" id="me-pts">0</div><div class="l">Your points</div></div>
+      <div class="me-spins"><div class="n num" id="me-spins">0</div><div class="l">Spin entries</div></div>
+      <div class="me-track"><div class="me-fill" id="me-fill"></div></div>
+    </div>
+
+    <div class="cup-layout">
+      <div class="board">
+        <div class="board-head">
+          <div class="board-title">🏆 Showdown Leaderboard</div>
+          <div class="board-tag" id="lb-tag">Live</div>
+        </div>
+        <div class="board-body" id="lb-body">
+          <p style="padding:1rem;font-size:12px;color:var(--ink3);text-align:center">Loading standings…</p>
+        </div>
+        <div class="board-foot"><span>People vs. people</span><span><b>Every point counts</b></span></div>
+      </div>
+
+      <div class="challenges" id="challenge-list"><!-- js --></div>
+    </div>
+  </section>
+
+  <!-- ═══ AWARD LEVELS ═══ -->
+  <section id="awards" class="reveal">
+    <h2 class="tt"><span class="l1">Award</span><span class="l2 gold">Levels</span></h2>
+    <p class="tt-sub">Complete missions. Earn points. Climb the leaderboard. Award progress is based on points earned through Passport Challenges, discussion posts, and action-plan submissions.</p>
+    <div class="tiers" id="tiers"><!-- js --></div>
+  </section>
+
+  <!-- ═══ SPIN & PRIZES ═══ -->
+  <section id="spin" class="reveal">
+    <h2 class="tt"><span class="l1">Spin to</span><span class="l2 blue">Win</span></h2>
+    <p class="tt-sub">A live digital prize wheel spins during Ready to Win. Your points convert to entries automatically — winners are announced live and recorded right here.</p>
+    <div class="spin-layout">
+      <div class="spin-card">
+        <h3 style="font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:.8rem">How entries work</h3>
+        <div class="spin-rule"><b>100 points</b><span>= 1 spin entry in the prize wheel</span></div>
+        <div class="spin-rule"><b>10 entries</b><span>maximum per attendee</span></div>
+        <div class="spin-rule"><b>+1 bonus</b><span>for completing <em>all</em> required activities</span></div>
+        <div class="spin-rule"><b>Live draw</b><span>winners announced during Ready to Win · Oct 5</span></div>
+      </div>
+      <div class="prize-card">
+        <h3 style="font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:.5rem">On the wheel</h3>
+        <div class="prize-row"><span class="prize-ic">🎮</span><div><div class="prize-n">PlayStation 5</div><div class="prize-d">The big one</div></div><span class="prize-qty">×4</span></div>
+        <div class="prize-row"><span class="prize-ic">🔊</span><div><div class="prize-n">JBL Speaker</div><div class="prize-d">Bring the noise</div></div><span class="prize-qty">×4</span></div>
+        <div class="prize-row"><span class="prize-ic">🧊</span><div><div class="prize-n">Yeti Ice Bucket</div><div class="prize-d">smartwater branded</div></div><span class="prize-qty">×4</span></div>
+        <div class="prize-row"><span class="prize-ic">⛺</span><div><div class="prize-n">Yeti Tundra 45 Cooler</div><div class="prize-d">Coke Zero Sugar branded</div></div><span class="prize-qty">×5</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ RIDDLES ═══ -->
+  <section id="riddles" class="reveal">
+    <h2 class="tt"><span class="l1">Fun with</span><span class="l2 green">Riddles</span></h2>
+    <p class="tt-sub">Crack these to sharpen your 2027 instincts. No peeking until you've got a guess.</p>
+    <div class="riddles" id="riddle-grid"><!-- js --></div>
+  </section>
+
+  <!-- ═══ RECORDING ═══ -->
+  <section id="recording" class="reveal">
+    <h2 class="tt"><span class="l1">Rewatch the</span><span class="l2 red">Meeting</span></h2>
+    <p class="tt-sub">Missed something? The full Elite Selling Teams meeting recording lives here — rewatch any time.</p>
+    <div class="rec-wrap">
+      <div class="rec-video" id="rec-video">
+        <div class="rec-placeholder" id="rec-placeholder">
+          <div class="rec-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"/></svg></div>
+          <div style="font-size:13px">Recording drops after the session on Aug 25</div>
+        </div>
+      </div>
+      <div class="rec-side">
+        <div class="rec-eyebrow">Session Recording</div>
+        <div class="rec-title" id="rec-title">Ready to Sell 2027 · Part 1</div>
+        <div class="rec-meta" id="rec-meta">Tuesday, August 25</div>
+        <div class="rec-desc">The full Elite Selling Teams meeting: 2026 wins, the 2027 priorities, Customer Roadmap activation, and every commitment made live. Rewatching counts — the details you catch the second time are the ones that close deals.</div>
+        <a class="btn-ghost rec-link" id="rec-link" href="#" target="_blank" rel="noopener" style="display:none">Open in Stream ↗</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="foot-star" id="star-egg" role="button" tabindex="0" aria-label="A gold star. Persistence pays off.">★</span>
+  <div class="foot-hint">
+    ① the star above rewards persistence (×5) &nbsp;·&nbsp; ② whisper the year the real thing was born — just type it &nbsp;·&nbsp; ③ what are you? type the one word every seller here wants to be
+  </div>
+  <div class="foot-brand"><b>Ready to Win 2027</b> · Elite Seller Showdown · RCCB Commercial</div>
+</footer>
+
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  ✏️  CONFIG — everything an admin might touch lives here
+// ═══════════════════════════════════════════════════════════════
+const CONFIG = {
+  eventDate:   '2026-10-05T08:00:00-07:00', // Ready to Win · Mon Oct 5 · 8:00 AM PST
+  participants: 120,
+
+  // One recording. Paste a Microsoft Stream (SharePoint) EMBED url to show
+  // the player inline, and/or a share link for the "Open in Stream" button.
+  // Stream embed: open the video → ⋯ → Embed code → copy the src="" url.
+  recordingEmbedUrl: '',
+  recordingShareUrl: '',
+  recordingTitle:    'Ready to Sell 2027 · Part 1',
+  recordingDateLabel:'Tuesday, August 25',
+};
+
+// Channels — how the 120 sellers are grouped (shown as a chip on the board)
+const CHANNELS = [
+  { code:'FSOP',  name:'FSOP',            color:'#E4051F' },
+  { code:'LS',    name:'Large Store',     color:'#C9A24B' },
+  { code:'SS',    name:'Small Store',     color:'#3DAE5A' },
+  { code:'DIG',   name:'Digital',         color:'#7FCFE0' },
+  { code:'REV',   name:'Revenue Bridge',  color:'#9B5CFF' },
+];
+
+// ═══ PASSPORT CHALLENGES (from the Ready to Win passport strategy) ═══
+const CHALLENGES = [
+  { id:'attend-part1',   label:'Attend Ready to Sell Part 1',                        desc:'Be there live on Tuesday, August 25', xp:50,  c:'c1', icon:'🎟️' },
+  { id:'visit-channel',  label:'Visit your dedicated channel page',                  desc:'Explore your channel\u2019s priorities on the SharePoint site', xp:50,  c:'c4', icon:'🧭' },
+  { id:'poll-part1',     label:'Complete a polling question during Part 1',          desc:'Vote in any live poll during the session', xp:25,  c:'c2', icon:'📊' },
+  { id:'chat-takeaway',  label:'Post a takeaway in the meeting chat',                desc:'Share one insight in the Part 1 Teams chat', xp:50,  c:'c3', icon:'💬' },
+  { id:'crm-roadmap',    label:'Create your 2027 Customer Roadmap in CRM',           desc:'Build the roadmap in Salesforce — the big one', xp:300, c:'c1', icon:'🗺️' },
+  { id:'roadmap-review', label:'Review your Customer Roadmap with your Director',    desc:'Walk your plan through with leadership', xp:100, c:'c2', icon:'🤝' },
+  { id:'viva-discuss',   label:'Add to the Viva Engage discussion',                  desc:'Post in the #ReadyToWin2027 hub', xp:100, c:'c4', icon:'📣' },
+  { id:'viva-recognize', label:'Recognize a teammate\u2019s 2026 achievement',       desc:'Shout out a win in Viva Engage #ReadyToWin', xp:100, c:'c3', icon:'🌟' },
+  { id:'viva-commit',    label:'Post your #1 Ready to Win commitment',               desc:'Declare it in Viva Engage #ReadyToWin', xp:100, c:'c1', icon:'✍️' },
+  { id:'viva-innovation',label:'Post the innovation with the biggest growth upside', desc:'Which innovation wins with customers? Post it', xp:100, c:'c2', icon:'💡' },
+  { id:'viva-bigbet',    label:'Answer: which Big Bet excites you most?',            desc:'Join the Big Bet discussion in Viva Engage', xp:100, c:'c4', icon:'🎯' },
+  { id:'watch-party',    label:'Register for a Ready to Win watch party',            desc:'Sign up for your local DC watch party · Oct 5', xp:50,  c:'c3', icon:'🍿' },
+];
+
+// ═══ AWARD LEVELS (bronze → silver → gold → glowing red trophy) ═══
+const TIERS = [
+  { name:'Contender',            pts:250,  color:'#CD7F32', icon:'🥉', desc:'Getting in the game' },
+  { name:'Challenger',           pts:500,  color:'#C0C0C0', icon:'🥈', desc:'Building momentum' },
+  { name:'Elite Seller',         pts:750,  color:'#FFD700', icon:'🥇', desc:'Executing at a high level' },
+  { name:'Ready to Win Champion',pts:1000, color:'#E41E26', icon:'🏆', glow:true, desc:'Top-tier recognition · 1,000+ points' },
+];
+
+// ═══ RIDDLES ═══
+const RIDDLES = [
+  { tag:'Riddle 01', title:'The Winning Blueprint',
+    body:'I start with a priority and end with proof.\nI connect customer needs to opportunity\u2019s roof.\nYou\u2019ll find me in CRM helping plans come alive.\nSix months later, I show whether you thrive.\nWhat am I?',
+    ans:'The Customer Roadmap Action Plan' },
+  { tag:'Riddle 02', title:'The 2027 Compass',
+    body:'I can be found in a hunt, but I\u2019m more than a clue.\nI help shape where we\u2019re headed and what we must do.\nI guide our decisions, our actions, our plan.\nYou\u2019ll search for my pillars and activate me too.\nWhat am I?',
+    ans:'The 2027 Growth Pillars & Priorities' },
+  { tag:'Riddle 03', title:'The Occasion Maker',
+    body:'I begin with relationships and end with growth.\nI use OBR conversations and digital solutions both.\nI don\u2019t ask, \u201cWhat drink should we sell today?\u201d\nI ask, \u201cWhat occasion are we helping create?\u201d\nWhat 2027 growth pillar am I?',
+    ans:'Grow the Occasion — win in local outlets + maximize beverage attachment' },
+];
+
+// ═══════════════════════════════════════════════════════════════
+//  POWER AUTOMATE FLOW — one endpoint, action-routed
+//  Build a NEW flow for this page (do not reuse Copilot Corner's).
+//  Actions this page calls:
+//    markDone       ← { userName, channel, challengeId, xpValue, eventKey }
+//                   → { status:"created" } | { status:"duplicate" }
+//                     (SharePoint list "RTW Points": Title=userName, Channel,
+//                      Challenge, XPValue(number), EventKey. Duplicate guard =
+//                      same userName + challengeId + eventKey.)
+//    getProgress    ← { userName, eventKey }  → { value:[{ Challenge, XPValue }] }
+//    getLeaderboard ← { eventKey }            → { value:[{ UserName, Channel, XPValue }] }
+//                     (one row per completion is fine — the page sums per person)
+//    getRecording   → { value:[{ Title, EmbedUrl, ShareUrl, DateLabel }] }  (optional —
+//                     lets you publish the video without editing this file)
+//  The flow must answer the OPTIONS preflight and return
+//  Access-Control-Allow-Origin headers (same CORS setup as Copilot Corner).
+// ═══════════════════════════════════════════════════════════════
+const FLOW_URL = 'PASTE_YOUR_NEW_FLOW_URL_HERE';
+const EVENT_KEY = 'rtw2027';
+
+async function callFlow(action, data = {}) {
+  if(!/^https?:/.test(FLOW_URL)) throw new Error('Flow not connected yet');
+  let res;
+  try {
+    res = await fetch(FLOW_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action, eventKey: EVENT_KEY, ...data }),
+    });
+  } catch (e) {
+    throw new Error('Blocked by browser (CORS) — the flow must answer OPTIONS preflight and return Access-Control-Allow-Origin headers');
+  }
+  if (!res.ok) throw new Error(`Flow "${action}" → HTTP ${res.status}`);
+  return res.json();
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════════════════════
+const $ = id => document.getElementById(id);
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function toast(msg,type='info'){
+  const t=document.createElement('div');
+  t.className='toast '+type;
+  t.setAttribute('role', type==='error' ? 'alert' : 'status');
+  t.textContent=msg;
+  $('toasts').appendChild(t);
+  setTimeout(()=>t.remove(),4200);
+}
+function countUp(el,target,ms=1100){
+  const t0=performance.now();
+  (function step(now){
+    const p=Math.min((now-t0)/ms,1), e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(target*e).toLocaleString();
+    if(p<1)requestAnimationFrame(step);
+  })(t0);
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  COUNTDOWN — flip-tick digits, updates every second
+//  Target: Ready to Win · Mon Oct 5 · 8:00 AM PST
+// ═══════════════════════════════════════════════════════════════
+const EVENT_TS=new Date(CONFIG.eventDate);
+$('strip-label').textContent='Ready to Win · '+EVENT_TS.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+(function(){
+  const els={Days:$('cdDays'),Hours:$('cdHours'),Minutes:$('cdMinutes'),Seconds:$('cdSeconds')};
+  function setVal(key,v){
+    const el=els[key]; if(!el)return;
+    const txt=String(v).padStart(2,'0');
+    if(el.textContent!==txt){
+      el.textContent=txt;
+      el.classList.remove('tick');
+      void el.offsetWidth;               // restart the flip animation
+      el.classList.add('tick');
+    }
+  }
+  function update(){
+    const diff=EVENT_TS-new Date();
+    if(diff<=0){
+      $('cd-title').innerHTML='It\u2019s <span class="rw">Ready to Win</span> Time! 🏁';
+      ['Days','Hours','Minutes','Seconds'].forEach(k=>setVal(k,0));
+      $('stat-days').textContent='0';
+      ['s-d','s-h','s-m'].forEach(i=>$(i).textContent='🏁');
+      $('strip-label').textContent='Ready to Win is HERE — good luck, sellers!';
+      clearInterval(timer);
+      return;
+    }
+    const d=Math.floor(diff/864e5);
+    setVal('Days',d);
+    setVal('Hours',Math.floor(diff/36e5)%24);
+    setVal('Minutes',Math.floor(diff/6e4)%60);
+    setVal('Seconds',Math.floor(diff/1e3)%60);
+    $('s-d').textContent=d; $('s-h').textContent=Math.floor(diff/36e5)%24; $('s-m').textContent=Math.floor(diff/6e4)%60;
+    $('stat-days').textContent=d;
+  }
+  update();
+  const timer=setInterval(update,1000);
+})();
+$('stat-sellers').textContent=CONFIG.participants;
+$('stat-challenges').textContent=CHALLENGES.length;
+
+// scroll reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ═══════════════════════════════════════════════════════════════
+//  IDENTITY — name + channel, cached locally (people vs. people)
+// ═══════════════════════════════════════════════════════════════
+function getIdentity(){try{return JSON.parse(localStorage.getItem('rtw-identity'))||null}catch{return null}}
+function saveIdentity(id){localStorage.setItem('rtw-identity',JSON.stringify(id))}
+function clearIdentity(){localStorage.removeItem('rtw-identity');renderIdentityBar();$('me-card').classList.remove('on')}
+
+function renderIdentityBar(){
+  const bar=$('identity-bar'), me=getIdentity();
+  if(me){
+    bar.classList.add('joined');
+    bar.innerHTML=`
+      <div class="id-text">Competing as <b>${esc(me.name)}</b> · <b>${esc(me.channel)}</b> — every challenge you finish moves YOU up the board.</div>
+      <button class="id-edit" type="button" onclick="clearIdentity()" aria-label="Change your name or channel">change</button>`;
+  }else{
+    bar.classList.remove('joined');
+    bar.innerHTML=`
+      <div class="id-text">This showdown is <b>you vs. 119 other sellers</b>. Enter your name to get on the board — takes five seconds.</div>
+      <label class="vh" for="id-name">Your name: First, Last</label>
+      <input class="id-field" id="id-name" type="text" placeholder="Your name: First, Last" maxlength="60" style="max-width:180px" autocomplete="name" />
+      <label class="vh" for="id-channel">Your channel</label>
+      <select class="id-field" id="id-channel" aria-label="Your channel"></select>
+      <button class="id-join-btn" type="button" onclick="joinShowdown()">Enter the Showdown</button>`;
+    const sel=$('id-channel');
+    sel.innerHTML='<option value="" disabled selected>Channel</option>'+
+      CHANNELS.map(c=>`<option value="${esc(c.code)}">${esc(c.name)}</option>`).join('');
+  }
+}
+
+function joinShowdown(){
+  const name=($('id-name').value||'').trim();
+  const channel=$('id-channel').value;
+  if(!name){toast('Add your name first','error');$('id-name').focus();return}
+  if(!channel){toast('Pick your channel','error');$('id-channel').focus();return}
+  saveIdentity({name,channel});
+  renderIdentityBar();
+  toast(`You're in, ${name.split(' ')[0]}! Race to Win starts now 🏁`,'success');
+  confettiBurst(50);
+  loadProgress();
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  YOUR PROGRESS — points, award tier, spin entries
+// ═══════════════════════════════════════════════════════════════
+function renderMe(points){
+  const card=$('me-card'); card.classList.add('on');
+  countUp($('me-pts'),points);
+  const entries=Math.min(Math.floor(points/100),10);
+  $('me-spins').textContent=entries;
+  let tier=null, next=TIERS[0];
+  for(const t of TIERS){ if(points>=t.pts){tier=t} }
+  next=TIERS.find(t=>points<t.pts)||null;
+  if(tier){
+    $('me-tier').textContent=tier.icon+' '+tier.name;
+    $('me-dot').style.background=tier.color;
+  }else{
+    $('me-tier').textContent='Unranked — get in the game';
+    $('me-dot').style.background='#555';
+  }
+  $('me-next').textContent=next?`${(next.pts-points).toLocaleString()} pts to ${next.name}`:'Maxed out. Legend status. 🏆';
+  const pct=Math.min(points/TIERS[TIERS.length-1].pts*100,100);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{$('me-fill').style.width=pct+'%'}));
+  // mark earned tiers
+  document.querySelectorAll('.tier').forEach((el,i)=>el.classList.toggle('unlocked',points>=TIERS[i].pts));
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  CHALLENGES
+// ═══════════════════════════════════════════════════════════════
+function renderChallenges(){
+  $('challenge-list').innerHTML=CHALLENGES.map(ch=>`
+    <div class="ch-card" data-ch="${ch.id}">
+      <div class="ch-ic ${ch.c}" aria-hidden="true">${ch.icon}</div>
+      <div class="ch-info">
+        <div class="ch-name">${esc(ch.label)}</div>
+        <div class="ch-desc">${esc(ch.desc)}</div>
+      </div>
+      <div class="ch-side">
+        <span class="ch-xp num">+${ch.xp} pts</span>
+        <button class="ch-btn" type="button" onclick="markDone('${ch.id}',this)">Mark done</button>
+      </div>
+    </div>`).join('');
+}
+
+async function markDone(id,btn){
+  const me=getIdentity();
+  if(!me){
+    toast('Enter the Showdown first — add your name above ☝️','info');
+    $('identity-bar').scrollIntoView({behavior:'smooth',block:'center'});
+    const nf=$('id-name'); if(nf) nf.focus();
+    return;
+  }
+  const ch=CHALLENGES.find(c=>c.id===id); if(!ch)return;
+  btn.disabled=true; btn.textContent='Saving…';
+  try{
+    const r=await callFlow('markDone',{
+      userName:me.name, channel:me.channel,
+      challengeId:id, xpValue:ch.xp,
+    });
+    if(r.status==='duplicate'){
+      toast('Already logged — nice hustle though 🎯','info');
+      setDone(btn,ch,false);
+    }else{
+      setDone(btn,ch,true);
+      toast(`+${ch.xp} pts! "${ch.label}" complete`,'success');
+      confettiBurst(40);
+      await Promise.allSettled([loadLeaderboard(),loadProgress()]);
+    }
+  }catch(e){
+    console.error('markDone failed:',e);
+    toast('Could not save — '+e.message,'error');
+    btn.disabled=false; btn.textContent='Mark done';
+  }
+}
+
+function setDone(btn,ch,animate){
+  const card=btn.closest('[data-ch]');
+  if(card)card.classList.add('is-done');
+  btn.textContent='✓ Done'; btn.disabled=true; btn.classList.add('done');
+  if(animate&&card){
+    const pop=document.createElement('span');
+    pop.className='xp-pop'; pop.textContent=`+${ch.xp}`;
+    card.appendChild(pop); setTimeout(()=>pop.remove(),1800);
+  }
+}
+
+async function loadProgress(){
+  const me=getIdentity(); if(!me)return;
+  try{
+    const {value}=await callFlow('getProgress',{userName:me.name});
+    let pts=0;
+    const done=new Set();
+    (value||[]).forEach(v=>{
+      done.add(v.Challenge);
+      pts+=Number(v.XPValue)||0;
+    });
+    done.forEach(id=>{
+      const btn=document.querySelector(`[data-ch="${id}"] .ch-btn`);
+      const ch=CHALLENGES.find(c=>c.id===id);
+      if(btn&&ch)setDone(btn,ch,false);
+    });
+    renderMe(pts);
+  }catch(e){ renderMe(0); }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  LEADERBOARD — individual, sums rows per person
+// ═══════════════════════════════════════════════════════════════
+async function loadLeaderboard(){
+  const el=$('lb-body');
+  const me=getIdentity();
+  try{
+    const {value}=await callFlow('getLeaderboard');
+    const totals={};
+    let total=0;
+    (value||[]).forEach(r=>{
+      const name=(r.UserName||r.Title||'').trim(); if(!name)return;
+      const xp=Number(r.XPValue)||0; total+=xp;
+      if(!totals[name])totals[name]={pts:0,channel:r.Channel||''};
+      totals[name].pts+=xp;
+      if(r.Channel)totals[name].channel=r.Channel;
+    });
+    countUp($('stat-pts'),total);
+    const ranked=Object.entries(totals).sort((a,b)=>b[1].pts-a[1].pts);
+    if(!ranked.length){
+      el.innerHTML='<p style="padding:1rem;font-size:12px;color:var(--ink3);text-align:center">No points yet — the board is wide open. Be first.</p>';
+      return;
+    }
+    $('lb-tag').textContent=ranked.length+' sellers';
+    const max=Math.max(ranked[0][1].pts,1);
+    const medals=['🥇','🥈','🥉'];
+    el.innerHTML=ranked.slice(0,25).map(([name,d],i)=>{
+      const c=CHANNELS.find(x=>x.code===d.channel)||{color:'#666'};
+      const pct=Math.round(d.pts/max*100);
+      const isMe=me&&name.toLowerCase()===me.name.toLowerCase();
+      return`
+        <div class="lb-row ${isMe?'me':''}">
+          <div class="lb-rank ${i===0?'r1':''}">${medals[i]??(i+1)}</div>
+          <div class="lb-chip" style="background:${c.color}" aria-hidden="true">${esc(d.channel)}</div>
+          <div class="lb-info">
+            <div class="lb-name">${esc(name)}${isMe?' · you':''}</div>
+            <div class="lb-track" role="img" aria-label="Rank ${i+1}: ${esc(name)}, ${d.pts.toLocaleString()} points"><div class="lb-fill" data-w="${pct}" style="background:${c.color}"></div></div>
+          </div>
+          <div class="lb-pts num">${d.pts.toLocaleString()}</div>
+        </div>`;
+    }).join('');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      el.querySelectorAll('.lb-fill').forEach(f=>f.style.width=f.dataset.w+'%');
+    }));
+  }catch(e){
+    el.innerHTML='<p style="padding:1rem;font-size:12px;color:var(--ink3);text-align:center">Standings light up once the flow is connected.</p>';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  AWARD TIERS + RIDDLES + RECORDING
+// ═══════════════════════════════════════════════════════════════
+$('tiers').innerHTML=TIERS.map(t=>`
+  <div class="tier">
+    <div class="tier-badge ${t.glow?'glow':''}" style="border-color:${t.color};background:${t.color}22" aria-hidden="true">${t.icon}</div>
+    <div class="tier-name" style="color:${t.color}">${esc(t.name)}</div>
+    <div class="tier-pts num" style="color:${t.color}">${t.pts.toLocaleString()}${t.pts>=1000?'+':''} points</div>
+    <div class="tier-desc">${esc(t.desc)}</div>
+  </div>`).join('');
+
+$('riddle-grid').innerHTML=RIDDLES.map((r,i)=>`
+  <div class="riddle">
+    <div class="riddle-tag">${esc(r.tag)}</div>
+    <div class="riddle-title">${esc(r.title)}</div>
+    <div class="riddle-body">${esc(r.body)}</div>
+    <button class="riddle-reveal" type="button" aria-expanded="false" aria-controls="riddle-ans-${i}" onclick="revealRiddle(${i},this)">Reveal answer</button>
+    <div class="riddle-ans" id="riddle-ans-${i}">✅ ${esc(r.ans)}</div>
+  </div>`).join('');
+
+function revealRiddle(i,btn){
+  const open=$('riddle-ans-'+i).classList.toggle('open');
+  btn.setAttribute('aria-expanded',open?'true':'false');
+  btn.textContent=open?'Hide answer':'Reveal answer';
+  if(open)confettiBurst(16);
+}
+
+function renderRecording(embedUrl,shareUrl,title,dateLabel){
+  if(title)$('rec-title').textContent=title;
+  if(dateLabel)$('rec-meta').textContent=dateLabel;
+  if(embedUrl){
+    $('rec-placeholder').remove?.();
+    $('rec-video').innerHTML=`<iframe src="${esc(embedUrl)}" title="${esc(title||'Session recording')}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
+  }
+  if(shareUrl){
+    const a=$('rec-link'); a.href=shareUrl; a.style.display='inline-flex';
+  }
+}
+
+async function loadRecording(){
+  // Priority: flow (publish without editing this file) → CONFIG values
+  try{
+    const {value}=await callFlow('getRecording');
+    const r=(value||[])[0];
+    if(r&&(r.EmbedUrl||r.ShareUrl)){
+      renderRecording(r.EmbedUrl,r.ShareUrl,r.Title,r.DateLabel);
+      return;
+    }
+  }catch(e){/* fall through to config */}
+  if(CONFIG.recordingEmbedUrl||CONFIG.recordingShareUrl){
+    renderRecording(CONFIG.recordingEmbedUrl,CONFIG.recordingShareUrl,CONFIG.recordingTitle,CONFIG.recordingDateLabel);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  CONFETTI — coke red, gold, white, sprite green
+// ═══════════════════════════════════════════════════════════════
+const CONFETTI_COLORS=['#E4051F','#C9A24B','#FFFFFF','#3DAE5A','#7FCFE0','#FFD700'];
+function confettiBurst(n=60){
+  for(let i=0;i<n;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.width=c.style.height=(5+Math.random()*6)+'px';
+    c.style.background=CONFETTI_COLORS[i%CONFETTI_COLORS.length];
+    c.style.animationDuration=(2+Math.random()*2.2)+'s';
+    c.style.animationDelay=(Math.random()*0.5)+'s';
+    if(Math.random()>.5)c.style.borderRadius='50%';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  🥚 EASTER EGGS — hinted cryptically in the footer
+//  1) Click the ★ in the footer 5× → sparkle cursor trail
+//  2) Type "1886" anywhere → Ice Cold Mode (Coke red + carbonation)
+//  3) Type "elite" anywhere → Elite Seller gold mode + confetti storm
+// ═══════════════════════════════════════════════════════════════
+(function(){
+  let clicks=0, trailing=false, timer;
+  const star=$('star-egg');
+  function tap(){
+    clicks++; clearTimeout(timer); timer=setTimeout(()=>clicks=0,1600);
+    if(clicks>=5){
+      clicks=0; trailing=!trailing;
+      toast(trailing?'✨ Sparkle trail engaged — sell with style':'Sparkle trail off','info');
+    }
+  }
+  star.addEventListener('click',tap);
+  star.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tap()}});
+  document.addEventListener('mousemove',e=>{
+    if(!trailing||Math.random()>.35)return;
+    const s=document.createElement('span');
+    s.className='sparkle'; s.textContent='★';
+    s.style.left=(e.clientX+(Math.random()*16-8))+'px';
+    s.style.top=(e.clientY+(Math.random()*16-8))+'px';
+    s.style.color=CONFETTI_COLORS[Math.floor(Math.random()*CONFETTI_COLORS.length)];
+    document.body.appendChild(s); setTimeout(()=>s.remove(),900);
+  });
+})();
+
+//  Type "1886" (the year the real thing was born) → ICE COLD MODE 🥤
+(function(){
+  let buf='', fizzTimer=null;
+  function bubbleUp(){
+    const b=document.createElement('div');
+    b.className='bubble';
+    const size=4+Math.random()*12;
+    b.style.width=b.style.height=size+'px';
+    b.style.left=Math.random()*100+'vw';
+    b.style.setProperty('--sway',(Math.random()*60-30)+'px');
+    b.style.animationDuration=(4+Math.random()*5)+'s';
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),9500);
+  }
+  function setIceCold(on){
+    document.body.classList.toggle('icecold',on);
+    clearInterval(fizzTimer); fizzTimer=null;
+    if(on){
+      for(let i=0;i<24;i++)setTimeout(bubbleUp,i*90);   // opening pour
+      fizzTimer=setInterval(bubbleUp,420);               // steady carbonation
+      toast('🥤 ICE COLD MODE — est. 1886. Stay refreshed, stay selling.','gold');
+    }else{
+      toast('Back to room temperature. ★','info');
+    }
+  }
+  window.addEventListener('keydown',e=>{
+    if(typeof e.key!=='string'||e.key.length!==1)return;
+    if(/^(INPUT|SELECT|TEXTAREA)$/.test(e.target?.tagName||''))return;
+    buf=(buf+e.key).slice(-4);
+    if(buf==='1886'){buf='';setIceCold(!document.body.classList.contains('icecold'))}
+  });
+})();
+
+//  Type "elite" → ELITE SELLER MODE 🏆 (everything turns championship gold)
+(function(){
+  let buf='';
+  window.addEventListener('keydown',e=>{
+    if(typeof e.key!=='string'||e.key.length!==1)return;
+    if(/^(INPUT|SELECT|TEXTAREA)$/.test(e.target?.tagName||''))return;
+    buf=(buf+e.key.toLowerCase()).slice(-5);
+    if(buf==='elite'){
+      buf='';
+      const on=document.body.classList.toggle('elitemode');
+      if(on){
+        confettiBurst(140);
+        toast('🏆 ELITE SELLER MODE — you said the magic word. Now go prove it.','gold');
+      }else{
+        toast('Elite mode off. The grind continues. ★','info');
+      }
+    }
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════════
+async function init(){
+  renderIdentityBar();
+  renderChallenges();
+  await Promise.allSettled([
+    loadLeaderboard(),
+    loadProgress(),
+    loadRecording(),
+  ]);
+}
+init();
+</script>
+</body>
+</html>
