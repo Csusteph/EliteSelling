@@ -76,8 +76,14 @@ section{scroll-margin-top:80px}
 .tt::after{content:'';display:block;height:1px;background:var(--line);margin-top:14px}
 .tt-sub{font-size:14px;color:var(--ink2);margin:-6px 0 1.4rem;max-width:62ch}
 
-/* ═══ HERO ══════════════════════════════════════════════════════ */
-.hero{padding:3.6rem 0 2.2rem;max-width:760px}
+/* ═══ HERO — full-bleed brand band, art bleeds top-to-bottom ════ */
+.hero-band{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-bottom:2.6rem;
+  background:#0d0d0d url('images/cokebackground.png') top center repeat;background-size:820px auto;
+  overflow:hidden}
+.hero{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:3.6rem 1.4rem;display:grid;grid-template-columns:1fr 260px;gap:2.5rem;align-items:center}
+.hero-art{position:absolute;top:0;bottom:0;height:100%;width:auto;z-index:1;
+  right:max(2rem,calc((100% - 1180px)/2 + 1.4rem));
+  filter:drop-shadow(0 0 26px rgba(0,0,0,.6))}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3);margin-bottom:1rem}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 2.2s ease infinite}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.55);opacity:.4}}
@@ -278,6 +284,8 @@ footer{border-top:1px solid var(--line);padding:2.2rem 1.4rem 2.6rem;text-align:
 
 /* ═══ RESPONSIVE ════════════════════════════════════════════════ */
 @media(max-width:960px){
+  .hero{grid-template-columns:1fr}
+  .hero-art{display:none}
   .cup-layout{grid-template-columns:1fr}
   .riddles{grid-template-columns:1fr}
   .spin-layout{grid-template-columns:1fr}
@@ -299,7 +307,11 @@ footer{border-top:1px solid var(--line);padding:2.2rem 1.4rem 2.6rem;text-align:
   .cd-grid{grid-template-columns:repeat(4,1fr);gap:8px}
 }
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  /* calm the ambient motion, but let the easter-egg fun (confetti,
+     sparkles, bubbles, flip digits, toasts) play at full speed */
+  .reveal{opacity:1!important;transform:none!important;transition:none!important}
+  .live-dot{animation:none!important}
+  .me-fill,.lb-fill{transition-duration:.01ms!important}
 }
 </style>
 </head>
@@ -337,20 +349,24 @@ footer{border-top:1px solid var(--line);padding:2.2rem 1.4rem 2.6rem;text-align:
 
 <main class="page" id="top">
 
-  <!-- ═══ HERO ═══ -->
-  <section class="hero">
-    <div>
-      <div class="eyebrow"><span class="live-dot" aria-hidden="true"></span>RCCB · 2027 READY TO SELL · RACE TO WIN</div>
-      <h1 class="title">Elite Seller <span class="rw">Showdown</span>
-        <span class="thin">Ready to Win: The Journey Starts Here.</span>
-      </h1>
-      <p class="hero-sub">Engage with content, earn points, collaborate with peers, and turn learning into <b>measurable customer success</b>. <b>120 elite sellers.</b> One leaderboard. Complete missions, climb the ranks, and earn your raffle tickets before Ready to Win on October 5.</p>
-      <div class="hero-ctas">
-        <a class="btn-primary" href="#showdown">Start earning points ↓</a>
-        <a class="btn-ghost" href="#recording">Rewatch the meeting</a>
+  <!-- ═══ HERO — full-bleed brand band ═══ -->
+  <div class="hero-band">
+    <img class="hero-art" src="images/cokeimage.png" alt="Coca-Cola bottle, cap, and Reyes Coca-Cola Bottling brand stack" />
+    <section class="hero">
+      <div>
+        <div class="eyebrow"><span class="live-dot" aria-hidden="true"></span>RCCB · 2027 READY TO SELL · RACE TO WIN</div>
+        <h1 class="title">Elite Seller <span class="rw">Showdown</span>
+          <span class="thin">Ready to Win: The Journey Starts Here.</span>
+        </h1>
+        <p class="hero-sub">Engage with content, earn points, collaborate with peers, and turn learning into <b>measurable customer success</b>. <b>120 elite sellers.</b> One leaderboard. Complete missions, climb the ranks, and earn your raffle tickets before Ready to Win on October 5.</p>
+        <div class="hero-ctas">
+          <a class="btn-primary" href="#showdown">Start earning points ↓</a>
+          <a class="btn-ghost" href="#recording">Rewatch the meeting</a>
+        </div>
       </div>
-    </div>
-  </section>
+      <div aria-hidden="true"><!-- space reserved for the bleeding art --></div>
+    </section>
+  </div>
 
   <!-- ═══ COUNTDOWN CARD ═══ -->
   <div class="cd-card reveal" role="timer" aria-label="Countdown to Ready to Win">
@@ -366,7 +382,7 @@ footer{border-top:1px solid var(--line);padding:2.2rem 1.4rem 2.6rem;text-align:
 
   <!-- ═══ STATS ═══ -->
   <div class="stats reveal">
-    <div class="stat"><div class="stat-n num" id="stat-sellers">120</div><div class="stat-l">Elite sellers competing</div></div>
+    <div class="stat"><div class="stat-n num" id="stat-sellers">0</div><div class="stat-l">Elite sellers competing</div></div>
     <div class="stat"><div class="stat-n num" id="stat-pts">0</div><div class="stat-l">Total points earned</div></div>
     <div class="stat"><div class="stat-n num" id="stat-days">–</div><div class="stat-l">Days until Ready to Win</div></div>
     <div class="stat"><div class="stat-n num" id="stat-challenges">12</div><div class="stat-l">Passport challenges</div></div>
@@ -470,7 +486,7 @@ footer{border-top:1px solid var(--line);padding:2.2rem 1.4rem 2.6rem;text-align:
 <footer>
   <span class="foot-star" id="star-egg" role="button" tabindex="0" aria-label="A gold star. Persistence pays off.">★</span>
   <div class="foot-hint">
-    ① the star above rewards persistence (×5) &nbsp;·&nbsp; ② whisper the year the real thing was born — just type it &nbsp;·&nbsp; ③ what are you? type the one word every seller here wants to be
+    ① the star above rewards persistence (×3) &nbsp;·&nbsp; ② whisper the year the real thing was born — just type it &nbsp;·&nbsp; ③ what are you? type the one word every seller here wants to be
   </div>
   <div class="foot-brand"><b>Ready to Win 2027</b> · Elite Seller Showdown · RCCB Commercial</div>
 </footer>
@@ -632,7 +648,6 @@ $('strip-label').textContent='Ready to Win · '+EVENT_TS.toLocaleDateString('en-
   update();
   const timer=setInterval(update,1000);
 })();
-$('stat-sellers').textContent=CONFIG.participants;
 $('stat-challenges').textContent=CHALLENGES.length;
 
 // scroll reveal
@@ -794,6 +809,8 @@ async function loadLeaderboard(){
     });
     countUp($('stat-pts'),total);
     const ranked=Object.entries(totals).sort((a,b)=>b[1]-a[1]);
+    // "Elite sellers competing" = unique names with at least one completion
+    countUp($('stat-sellers'),ranked.length);
     if(!ranked.length){
       el.innerHTML='<p style="padding:1rem;font-size:12px;color:var(--ink3);text-align:center">No points yet — the board is wide open. Be first.</p>';
       return;
@@ -885,13 +902,13 @@ async function loadRecording(){
 //  CONFETTI — coke red, gold, white, sprite green
 // ═══════════════════════════════════════════════════════════════
 const CONFETTI_COLORS=['#E4051F','#C9A24B','#FFFFFF','#3DAE5A','#7FCFE0','#FFD700'];
-function confettiBurst(n=60){
+function confettiBurst(n=60,colors=CONFETTI_COLORS){
   for(let i=0;i<n;i++){
     const c=document.createElement('div');
     c.className='confetti';
     c.style.left=Math.random()*100+'vw';
     c.style.width=c.style.height=(5+Math.random()*6)+'px';
-    c.style.background=CONFETTI_COLORS[i%CONFETTI_COLORS.length];
+    c.style.background=colors[i%colors.length];
     c.style.animationDuration=(2+Math.random()*2.2)+'s';
     c.style.animationDelay=(Math.random()*0.5)+'s';
     if(Math.random()>.5)c.style.borderRadius='50%';
@@ -911,7 +928,7 @@ function confettiBurst(n=60){
   const star=$('star-egg');
   function tap(){
     clicks++; clearTimeout(timer); timer=setTimeout(()=>clicks=0,1600);
-    if(clicks>=5){
+    if(clicks>=3){
       clicks=0; trailing=!trailing;
       toast(trailing?'✨ Sparkle trail engaged — sell with style':'Sparkle trail off','info');
     }
@@ -973,7 +990,8 @@ function confettiBurst(n=60){
       buf='';
       const on=document.body.classList.toggle('elitemode');
       if(on){
-        confettiBurst(140);
+        // golden confetti storm — elite sellers get elite treatment
+        confettiBurst(160,['#FFD700','#C9A24B','#F5E7A0','#B8860B','#FFF3B0']);
         toast('🏆 ELITE SELLER MODE — you said the magic word. Now go prove it.','gold');
       }else{
         toast('Elite mode off. The grind continues. ★','info');
