@@ -164,11 +164,11 @@ select.id-field option{background:#181818;color:var(--ink)}
 
 /* showdown layout: leaderboard + challenges */
 .cup-layout{display:grid;grid-template-columns:360px 1fr;gap:16px}
-.board{border:1px solid var(--line);border-radius:4px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column}
+.board{border:1px solid var(--line);border-radius:4px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column;align-self:start;position:sticky;top:80px}
 .board-head{padding:1.1rem 1.3rem;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
 .board-title{font-family:var(--display);font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
 .board-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
-.board-body{padding:.8rem 1rem 1.1rem;flex:1;max-height:520px;overflow-y:auto}
+.board-body{padding:.8rem 1rem 1.1rem;max-height:min(560px,calc(100vh - 240px));overflow-y:auto}
 .lb-row{display:flex;align-items:center;gap:11px;padding:8px 4px;border-radius:3px}
 .lb-row.me{background:rgba(201,162,75,.1);outline:1px solid rgba(201,162,75,.35)}
 .lb-rank{font-family:var(--mono);font-size:12px;width:26px;text-align:center;color:var(--ink3);flex-shrink:0}
@@ -845,7 +845,7 @@ function getTier(points){
   }
   return '⭐';
 }
-    el.innerHTML=ranked.slice(0,25).map(([name,pts],i)=>{
+    el.innerHTML=ranked.map(([name,pts],i)=>{
       // deterministic color per person from their name
       let h=0; for(const c of name)h=(h*31+c.charCodeAt(0))>>>0;
       const color=CHIP_COLORS[h%CHIP_COLORS.length];
