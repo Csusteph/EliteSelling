@@ -11,7 +11,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 
 <style>
-   
 /* ═══ READY TO WIN · ELITE SELLER SHOWDOWN · DESIGN SYSTEM ═════════
    Coca-Cola IR look: white top nav + red pill, near-black panel,
    two-tone stacked headings, flat design, thin dividers.           */
@@ -47,19 +46,8 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.
 /* ═══ WHITE TOP NAV ═════════════════════════════════════════════ */
 .topnav{background:#fff;border-bottom:1px solid #e5e2de;position:sticky;top:0;z-index:100}
 .topnav-in{max-width:1180px;margin:0 auto;padding:0 1.4rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.wordmark{
-  display:flex;
-  align-items:center;
-  text-decoration:none;
-}
-
-.nav-logo{
-  height:54px;
-  width:auto;
-  display:block;
-}
-.wm-side{font-family:var(--display);font-size:12px;font-weight:700;letter-spacing:.22em}
-.wm-script{font-family:'Brush Script MT','Segoe Script',cursive;font-size:26px;font-weight:400;color:var(--red);line-height:1;transform:translateY(2px);cursor:pointer;user-select:none}
+.wordmark{display:flex;align-items:center;text-decoration:none;white-space:nowrap}
+.nav-logo{height:44px;width:auto;display:block}
 .topnav nav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:flex-end}
 .topnav nav a{color:#3a3a38;font-size:14px;font-weight:500;text-decoration:none;padding:7px 13px;border-radius:999px;transition:background .15s,color .15s;white-space:nowrap}
 .topnav nav a:hover{background:#f2efeb;color:#111}
@@ -237,7 +225,26 @@ select.id-field option{background:#181818;color:var(--ink)}
 .prize-dots{display:flex;justify-content:center;gap:8px;margin-top:.9rem}
 .prize-dot{width:8px;height:8px;border-radius:50%;border:none;padding:0;background:rgba(255,255,255,.22);cursor:pointer;transition:background .2s,transform .2s}
 .prize-dot.on{background:var(--red);transform:scale(1.25)}
-   
+
+/* ═══ CHAMPION MODAL — all challenges complete ══════════════════ */
+.champ-overlay{position:fixed;inset:0;z-index:10000;background:rgba(10,10,10,.88);backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;transition:opacity .4s var(--ease)}
+.champ-overlay.on{opacity:1}
+.champ-box{max-width:520px;width:100%;text-align:center;background:var(--panel);border:1px solid rgba(228,5,31,.5);
+  border-radius:6px;padding:2.6rem 2rem 2.2rem;position:relative;transform:scale(.85);transition:transform .45s var(--ease);
+  box-shadow:0 0 60px rgba(228,5,31,.35),0 0 120px rgba(228,5,31,.15)}
+.champ-overlay.on .champ-box{transform:scale(1)}
+.champ-trophy{font-size:72px;line-height:1;display:inline-block;animation:champ-bounce 1.6s var(--ease) infinite}
+@keyframes champ-bounce{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-10px) scale(1.08)}}
+.champ-h1{font-family:var(--display);font-weight:400;font-size:30px;color:var(--ink);margin-top:.8rem;line-height:1.05}
+.champ-h2{font-family:var(--heavy);font-weight:900;font-size:40px;text-transform:uppercase;letter-spacing:-.02em;color:var(--red);line-height:1.05}
+.champ-sub{font-size:14.5px;color:var(--ink2);margin:1rem auto 0;max-width:38ch;line-height:1.55}
+.champ-bonus{margin:1.3rem auto 0;display:inline-block;background:rgba(201,162,75,.12);border:1px solid rgba(201,162,75,.45);
+  border-radius:4px;padding:12px 18px;font-family:var(--mono);font-size:13px;font-weight:600;color:var(--gold)}
+.champ-btn{margin-top:1.5rem;background:var(--red);color:#fff;border:none;border-radius:999px;padding:12px 28px;
+  font-family:var(--display);font-weight:700;font-size:14px;cursor:pointer;transition:background .15s,transform .15s}
+.champ-btn:hover{background:#c70419;transform:scale(1.04)}
+
 /* ═══ RIDDLES ═══════════════════════════════════════════════════ */
 .riddles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .riddle{border:1px solid var(--line);border-radius:4px;background:var(--panel);padding:1.4rem 1.5rem;display:flex;flex-direction:column}
@@ -342,10 +349,9 @@ footer{border-top:1px solid var(--line);padding:2.2rem 1.4rem 2.6rem;text-align:
 <!-- ═══ WHITE TOP NAV ═══ -->
 <header class="topnav">
   <div class="topnav-in">
- <a class="wordmark" href="#top" aria-label="Ready to Win home">
-  <img class="nav-logo" src="images/RTW2027.png" alt="Ready to Win 2027" />
-</a>
-
+    <a class="wordmark" href="#top" aria-label="Ready to Win home">
+      <img class="nav-logo" src="images/RTW2027.png" alt="Ready to Win 2027" />
+    </a>
     <nav aria-label="Page sections">
       <a class="active" href="#top">Showdown Home</a>
       <a href="#showdown">Race to Win</a>
@@ -409,7 +415,7 @@ footer{border-top:1px solid var(--line);padding:2.2rem 1.4rem 2.6rem;text-align:
   </div>
 
   <!-- ═══ RACE TO WIN ═══ -->
-<section id="showdown" class="reveal">
+  <section id="showdown" class="reveal">
     <h2 class="tt"><span class="l1">Race to</span><span class="l2 red">Win</span></h2>
     <p class="tt-sub">Complete Passport Challenges to earn points for the Showdown. Every 100 points = 1 raffle ticket in the live prize drawing at Ready to Win. It's you vs. everyone.</p>
 
@@ -451,7 +457,7 @@ footer{border-top:1px solid var(--line);padding:2.2rem 1.4rem 2.6rem;text-align:
     <div class="tiers" id="tiers"><!-- js --></div>
   </section>
 
-<!-- ═══ RAFFLE & PRIZES ═══ -->
+  <!-- ═══ RAFFLE & PRIZES ═══ -->
   <section id="raffle" class="reveal">
     <h2 class="tt"><span class="l1">Ticket to</span><span class="l2 blue">Win</span></h2>
     <p class="tt-sub">A live prize drawing during Ready to Win. Your points convert to raffle tickets automatically — winners are announced live and recorded right here.</p>
@@ -715,10 +721,12 @@ function joinShowdown(){
 // ═══════════════════════════════════════════════════════════════
 //  YOUR PROGRESS — points, award tier, raffle tickets
 // ═══════════════════════════════════════════════════════════════
-function renderMe(points){
+function renderMe(points,completedAll){
   const card=$('me-card'); card.classList.add('on');
   countUp($('me-pts'),points);
-  const entries=Math.min(Math.floor(points/100),10);
+  // 100 pts = 1 ticket (max 10), +1 bonus for completing every challenge
+  let entries=Math.min(Math.floor(points/100),10);
+  if(completedAll)entries+=1;
   $('me-spins').textContent=entries;
   let tier=null, next=TIERS[0];
   for(const t of TIERS){ if(points>=t.pts){tier=t} }
@@ -812,14 +820,46 @@ async function loadProgress(){
       const ch=CHALLENGES.find(c=>c.id===id);
       if(btn&&ch)setDone(btn,ch,false);
     });
-    renderMe(pts);
-  }catch(e){ renderMe(0); }
+    renderMe(pts,CHALLENGES.every(c=>done.has(c.id)));
+    if(CHALLENGES.every(c=>done.has(c.id)))maybeChampionModal();
+  }catch(e){ renderMe(0,false); }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  CHAMPION MODAL — fires once when every challenge is complete
+// ═══════════════════════════════════════════════════════════════
+function maybeChampionModal(){
+  const me=getIdentity();
+  const key='rtw-champ-seen:'+(me?me.name:'');
+  if(localStorage.getItem(key))return;
+  localStorage.setItem(key,'1');
+  const first=me?esc(me.name.split(' ')[0]):'Champion';
+  const ov=document.createElement('div');
+  ov.className='champ-overlay';
+  ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Passport complete');
+  ov.innerHTML=`
+    <div class="champ-box">
+      <span class="champ-trophy" aria-hidden="true">🏆</span>
+      <div class="champ-h1">Passport</div>
+      <div class="champ-h2">Complete</div>
+      <p class="champ-sub">${first}, you did it — all 13 challenges, every point on the board.
+      That's <b style="color:var(--ink)">Ready to Win Champion</b> status. 119 other sellers wish they were you right now.</p>
+      <div class="champ-bonus">🎟️ +1 BONUS TICKET — 11 raffle entries in the drawing</div><br>
+      <button class="champ-btn" type="button">Claim the glory</button>
+    </div>`;
+  document.body.appendChild(ov);
+  requestAnimationFrame(()=>ov.classList.add('on'));
+  // champion-worthy storm: coke red + gold
+  confettiBurst(200,['#E4051F','#FFD700','#C9A24B','#FF5A5F','#F5E7A0','#FFFFFF']);
+  setTimeout(()=>confettiBurst(120,['#E4051F','#FFD700','#C9A24B']),900);
+  function close(){ov.classList.remove('on');setTimeout(()=>ov.remove(),400)}
+  ov.querySelector('.champ-btn').addEventListener('click',()=>{close();confettiBurst(80,['#FFD700','#C9A24B'])});
+  ov.addEventListener('click',e=>{if(e.target===ov)close()});
 }
 
 // ═══════════════════════════════════════════════════════════════
 //  LEADERBOARD — individual, sums rows per person
 // ═══════════════════════════════════════════════════════════════
-
 async function loadLeaderboard(){
   const el=$('lb-body');
   const me=getIdentity();
@@ -842,22 +882,12 @@ async function loadLeaderboard(){
     }
     $('lb-tag').textContent=ranked.length+' sellers';
     const max=Math.max(ranked[0][1],1);
-
-function getTier(points){
-  if(points >= 1000){
-    return '🏆';
-  }
-  if(points >= 750){
-    return '🥇';
-  }
-  if(points >= 500){
-    return '🥈';
-  }
-  if(points >= 250){
-    return '🥉';
-  }
-  return '⭐';
-}
+    // tier badge per person — with this many ties, tiers beat places
+    const tierIcon=pts=>{
+      let icon='⭐';
+      for(const t of TIERS){ if(pts>=t.pts)icon=t.icon; }
+      return icon;
+    };
     el.innerHTML=ranked.map(([name,pts],i)=>{
       // deterministic color per person from their name
       let h=0; for(const c of name)h=(h*31+c.charCodeAt(0))>>>0;
@@ -865,10 +895,9 @@ function getTier(points){
       const initials=name.split(/[\s,]+/).filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase();
       const pct=Math.round(pts/max*100);
       const isMe=me&&name.toLowerCase()===me.name.toLowerCase();
-const tier=getTier(pts);
       return`
         <div class="lb-row ${isMe?'me':''}">
-          <div class="lb-rank">${tier}</div>
+          <div class="lb-rank">${tierIcon(pts)}</div>
           <div class="lb-chip" style="background:${color}" aria-hidden="true">${esc(initials)}</div>
           <div class="lb-info">
             <div class="lb-name">${esc(name)}${isMe?' · you':''}</div>
@@ -884,6 +913,7 @@ const tier=getTier(pts);
     el.innerHTML='<p style="padding:1rem;font-size:12px;color:var(--ink3);text-align:center">Standings light up once the flow is connected.</p>';
   }
 }
+
 // ═══════════════════════════════════════════════════════════════
 //  AWARD TIERS + RIDDLES + RECORDING
 // ═══════════════════════════════════════════════════════════════
@@ -1068,7 +1098,7 @@ function confettiBurst(n=60,colors=CONFETTI_COLORS){
   stage.addEventListener('mouseleave',restart);
   restart();
 })();
-   
+
 // ═══════════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════════
