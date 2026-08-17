@@ -701,7 +701,7 @@ function renderIdentityBar(){
   }else{
     bar.classList.remove('joined');
     bar.innerHTML=`
-      <div class="id-text">This showdown is <b>you vs. 119 other sellers</b>. Enter your name to get on the board — takes five seconds.</div>
+      <div class="id-text">This showdown is <b>you vs. everyone else</b>. Enter your name to get on the board — takes five seconds.</div>
       <label class="vh" for="id-name">Your name: First, Last</label>
       <input class="id-field" id="id-name" type="text" placeholder="Your name: First, Last" maxlength="60" style="max-width:200px" autocomplete="name" />
       <button class="id-join-btn" type="button" onclick="joinShowdown()">Enter the Showdown</button>`;
@@ -843,7 +843,7 @@ function maybeChampionModal(){
       <div class="champ-h1">Passport</div>
       <div class="champ-h2">Complete</div>
       <p class="champ-sub">${first}, you did it — all 13 challenges, every point on the board.
-      That's <b style="color:var(--ink)">Ready to Win Champion</b> status. 119 other sellers wish they were you right now.</p>
+      That's <b style="color:var(--ink)">Ready to Win Champion</b> status. Elite from the first point to the last.</p>
       <div class="champ-bonus">🎟️ +1 BONUS TICKET — 11 raffle entries in the drawing</div><br>
       <button class="champ-btn" type="button">Claim the glory</button>
     </div>`;
