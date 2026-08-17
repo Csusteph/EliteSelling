@@ -46,7 +46,17 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.
 /* ═══ WHITE TOP NAV ═════════════════════════════════════════════ */
 .topnav{background:#fff;border-bottom:1px solid #e5e2de;position:sticky;top:0;z-index:100}
 .topnav-in{max-width:1180px;margin:0 auto;padding:0 1.4rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.wordmark{display:flex;align-items:baseline;gap:8px;color:#111;text-decoration:none;white-space:nowrap}
+.wordmark{
+  display:flex;
+  align-items:center;
+  text-decoration:none;
+}
+
+.rtw-logo{
+  height:54px;
+  width:auto;
+  display:block;
+}
 .wm-side{font-family:var(--display);font-size:12px;font-weight:700;letter-spacing:.22em}
 .wm-script{font-family:'Brush Script MT','Segoe Script',cursive;font-size:26px;font-weight:400;color:var(--red);line-height:1;transform:translateY(2px);cursor:pointer;user-select:none}
 .topnav nav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:flex-end}
@@ -321,11 +331,11 @@ footer{border-top:1px solid var(--line);padding:2.2rem 1.4rem 2.6rem;text-align:
 <!-- ═══ WHITE TOP NAV ═══ -->
 <header class="topnav">
   <div class="topnav-in">
-    <a class="wordmark" href="#top" aria-label="Ready to Win home">
-      <span class="wm-side">READY TO</span>
-      <span class="wm-script" id="logo-egg" title="win">Win</span>
-      <span class="wm-side">2027</span>
-    </a>
+  <a class="wordmark" href="#top" aria-label="Ready to Win 2027"
+    class="rtw-logo"
+    id="logo-egg">
+</a>
+
     <nav aria-label="Page sections">
       <a class="active" href="#top">Showdown Home</a>
       <a href="#showdown">Race to Win</a>
