@@ -447,7 +447,7 @@ footer{border-top:1px solid var(--line);padding:2.2rem 1.4rem 2.6rem;text-align:
         <h3 style="font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:.5rem">In the drawing</h3>
         <div class="prize-row"><span class="prize-ic">🎮</span><div><div class="prize-n">PlayStation 5</div><div class="prize-d">The big one</div></div><span class="prize-qty">×4</span></div>
         <div class="prize-row"><span class="prize-ic">🔊</span><div><div class="prize-n">JBL Speaker</div><div class="prize-d">Bring the noise</div></div><span class="prize-qty">×4</span></div>
-        <div class="prize-row"><span class="prize-ic">🧊</span><div><div class="prize-n">Yeti Ice Bucket</div><div class="prize-d">smartwater branded</div></div><span class="prize-qty">×4</span></div>
+        <div class="prize-row"><span class="prize-ic">🧊</span><div><div class="prize-n">Yeti Ice Bucket</div><div class="prize-d">Smartwater branded</div></div><span class="prize-qty">×4</span></div>
         <div class="prize-row"><span class="prize-ic">⛺</span><div><div class="prize-n">Yeti Tundra 45 Cooler</div><div class="prize-d">Coke Zero Sugar branded</div></div><span class="prize-qty">×5</span></div>
       </div>
     </div>
@@ -796,6 +796,7 @@ async function loadProgress(){
 // ═══════════════════════════════════════════════════════════════
 //  LEADERBOARD — individual, sums rows per person
 // ═══════════════════════════════════════════════════════════════
+
 async function loadLeaderboard(){
   const el=$('lb-body');
   const me=getIdentity();
@@ -818,17 +819,33 @@ async function loadLeaderboard(){
     }
     $('lb-tag').textContent=ranked.length+' sellers';
     const max=Math.max(ranked[0][1],1);
-    const medals=['🥇','🥈','🥉'];
+
+function getTier(points){
+  if(points >= 1000){
+    return '🏆';
+  }
+  if(points >= 750){
+    return '🥇';
+  }
+  if(points >= 500){
+    return '🥈';
+  }
+  if(points >= 250){
+    return '🥉';
+  }
+  return '⭐';
+}
     el.innerHTML=ranked.slice(0,25).map(([name,pts],i)=>{
       // deterministic color per person from their name
       let h=0; for(const c of name)h=(h*31+c.charCodeAt(0))>>>0;
       const color=CHIP_COLORS[h%CHIP_COLORS.length];
       const initials=name.split(/[\s,]+/).filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase();
       const pct=Math.round(pts/max*100);
-      const isMe=me&&name.toLowerCase()===me.name.toLowerCase();
+      cconst isMe=me&&name.toLowerCase()===me.name.toLowerCase();
+const tier=getTier(pts);
       return`
         <div class="lb-row ${isMe?'me':''}">
-          <div class="lb-rank ${i===0?'r1':''}">${medals[i]??(i+1)}</div>
+          <div class="lb-rank">${tier}</div>
           <div class="lb-chip" style="background:${color}" aria-hidden="true">${esc(initials)}</div>
           <div class="lb-info">
             <div class="lb-name">${esc(name)}${isMe?' · you':''}</div>
@@ -843,8 +860,7 @@ async function loadLeaderboard(){
   }catch(e){
     el.innerHTML='<p style="padding:1rem;font-size:12px;color:var(--ink3);text-align:center">Standings light up once the flow is connected.</p>';
   }
-}
-
+   
 // ═══════════════════════════════════════════════════════════════
 //  AWARD TIERS + RIDDLES + RECORDING
 // ═══════════════════════════════════════════════════════════════
