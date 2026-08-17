@@ -841,7 +841,7 @@ function getTier(points){
       const color=CHIP_COLORS[h%CHIP_COLORS.length];
       const initials=name.split(/[\s,]+/).filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase();
       const pct=Math.round(pts/max*100);
-      cconst isMe=me&&name.toLowerCase()===me.name.toLowerCase();
+      const isMe=me&&name.toLowerCase()===me.name.toLowerCase();
 const tier=getTier(pts);
       return`
         <div class="lb-row ${isMe?'me':''}">
