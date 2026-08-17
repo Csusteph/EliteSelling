@@ -227,7 +227,17 @@ select.id-field option{background:#181818;color:var(--ink)}
 .prize-n{font-size:14px;font-weight:600}
 .prize-d{font-size:12px;color:var(--ink2);margin-top:1px}
 .prize-qty{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--gold);white-space:nowrap}
-
+/* prize carousel */
+.prize-stage{position:relative;min-height:288px;margin-top:.4rem}
+.prize-slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;opacity:0;transition:opacity .6s var(--ease);pointer-events:none}
+.prize-slide.on{opacity:1;pointer-events:auto}
+.prize-img{height:190px;width:100%;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.45))}
+.prize-slide .prize-n{font-size:16px}
+.prize-slide .prize-qty{margin-left:0;font-size:12.5px}
+.prize-dots{display:flex;justify-content:center;gap:8px;margin-top:.9rem}
+.prize-dot{width:8px;height:8px;border-radius:50%;border:none;padding:0;background:rgba(255,255,255,.22);cursor:pointer;transition:background .2s,transform .2s}
+.prize-dot.on{background:var(--red);transform:scale(1.25)}
+   
 /* ═══ RIDDLES ═══════════════════════════════════════════════════ */
 .riddles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .riddle{border:1px solid var(--line);border-radius:4px;background:var(--panel);padding:1.4rem 1.5rem;display:flex;flex-direction:column}
@@ -441,7 +451,7 @@ footer{border-top:1px solid var(--line);padding:2.2rem 1.4rem 2.6rem;text-align:
     <div class="tiers" id="tiers"><!-- js --></div>
   </section>
 
-  <!-- ═══ RAFFLE & PRIZES ═══ -->
+<!-- ═══ RAFFLE & PRIZES ═══ -->
   <section id="raffle" class="reveal">
     <h2 class="tt"><span class="l1">Ticket to</span><span class="l2 blue">Win</span></h2>
     <p class="tt-sub">A live prize drawing during Ready to Win. Your points convert to raffle tickets automatically — winners are announced live and recorded right here.</p>
@@ -455,10 +465,13 @@ footer{border-top:1px solid var(--line);padding:2.2rem 1.4rem 2.6rem;text-align:
       </div>
       <div class="prize-card">
         <h3 style="font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:.5rem">In the drawing</h3>
-        <div class="prize-row"><span class="prize-ic">🎮</span><div><div class="prize-n">PlayStation 5</div><div class="prize-d">The big one</div></div><span class="prize-qty">×4</span></div>
-        <div class="prize-row"><span class="prize-ic">🔊</span><div><div class="prize-n">JBL Speaker</div><div class="prize-d">Bring the noise</div></div><span class="prize-qty">×4</span></div>
-        <div class="prize-row"><span class="prize-ic">🧊</span><div><div class="prize-n">Yeti Ice Bucket</div><div class="prize-d">Smartwater branded</div></div><span class="prize-qty">×4</span></div>
-        <div class="prize-row"><span class="prize-ic">⛺</span><div><div class="prize-n">Yeti Tundra 45 Cooler</div><div class="prize-d">Coke Zero Sugar branded</div></div><span class="prize-qty">×5</span></div>
+        <div class="prize-stage" id="prize-stage" aria-roledescription="carousel" aria-label="Raffle prizes">
+          <div class="prize-slide on"><img class="prize-img" src="images/playstation.png" alt="PlayStation 5" loading="lazy" /><div><div class="prize-n">PlayStation 5</div><div class="prize-d">The big one</div><div class="prize-qty num">×4 in the drawing</div></div></div>
+          <div class="prize-slide"><img class="prize-img" src="images/jblspeaker.png" alt="JBL Speaker" loading="lazy" /><div><div class="prize-n">JBL Speaker</div><div class="prize-d">Bring the noise</div><div class="prize-qty num">×4 in the drawing</div></div></div>
+          <div class="prize-slide"><img class="prize-img" src="images/yetiice.png" alt="Yeti Ice Bucket, smartwater branded" loading="lazy" /><div><div class="prize-n">Yeti Ice Bucket</div><div class="prize-d">smartwater branded</div><div class="prize-qty num">×4 in the drawing</div></div></div>
+          <div class="prize-slide"><img class="prize-img" src="images/yetitundra.png" alt="Yeti Tundra 45 Cooler, Coke Zero Sugar branded" loading="lazy" /><div><div class="prize-n">Yeti Tundra 45 Cooler</div><div class="prize-d">Coke Zero Sugar branded</div><div class="prize-qty num">×5 in the drawing</div></div></div>
+        </div>
+        <div class="prize-dots" id="prize-dots" role="tablist" aria-label="Choose prize"></div>
       </div>
     </div>
   </section>
@@ -1027,6 +1040,35 @@ function confettiBurst(n=60,colors=CONFETTI_COLORS){
   });
 })();
 
+// ═══════════════════════════════════════════════════════════════
+//  PRIZE CAROUSEL — auto-rotates through the drawing prizes
+// ═══════════════════════════════════════════════════════════════
+(function(){
+  const stage=$('prize-stage');if(!stage)return;
+  const slides=[...stage.querySelectorAll('.prize-slide')];
+  const dotsWrap=$('prize-dots');
+  let idx=0,timer=null;
+  const dots=slides.map((_,i)=>{
+    const d=document.createElement('button');
+    d.className='prize-dot'+(i===0?' on':'');
+    d.type='button';d.setAttribute('role','tab');
+    d.setAttribute('aria-label','Prize '+(i+1)+' of '+slides.length);
+    d.addEventListener('click',()=>{go(i);restart();});
+    dotsWrap.appendChild(d);return d;
+  });
+  function go(i){
+    idx=i;
+    slides.forEach((s,j)=>s.classList.toggle('on',j===i));
+    dots.forEach((d,j)=>d.classList.toggle('on',j===i));
+  }
+  function next(){go((idx+1)%slides.length);}
+  function restart(){clearInterval(timer);timer=setInterval(next,3800);}
+  // pause while hovering so people can read
+  stage.addEventListener('mouseenter',()=>clearInterval(timer));
+  stage.addEventListener('mouseleave',restart);
+  restart();
+})();
+   
 // ═══════════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════════
